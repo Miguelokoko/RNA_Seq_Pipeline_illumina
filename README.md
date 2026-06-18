@@ -29,37 +29,38 @@ mkdir Database
 # move into the folder Database
 cd Database
 
-# setting up of Anopheles arabiensis genome database for CYP450 genes
-https://ftp.ensembl.org/pub/release-110/fasta/anopheles_arabiensis/dna/Anopheles_arabiensis.AaraD1.dna.toplevel.fa.gz
+# setting up of Anopheles gambiae genome database for CYP450 genes
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/150/785/GCA_000150785.1_g4/GCA_000150785.1_g4_genomic.fna.gz
 
 # Unzip Anopheles AgamP4.dna
-gunzip Anopheles_arabiensis.AaraD1.dna.toplevel.fa.gz
+gunzip GCA_000150785.1_g4_genomic.fna.gz
 
 # view the first few lines of the file
-cat Anopheles_arabiensis.AaraD1.dna.toplevel.fa | head
+cat GCA_000150785.1_g4_genomic.fna.gz | head 
 
-# Index the Anopheles arabiensis for faster alignmnet
-bowtie2-build Anopheles_arabiensis.AaraD1.dna.toplevel.fa AaraD1_index
+# Index the Anopheles gambiae for faster alignmnet
+bowtie2-build GCA_000150785.1_g4_genomic.fna Agamp4 
 
-# Setting up the GTF file for Anopheles aranbiensis
+# Setting up the GTF file for Anopheles gambiae
 ##  downloading the GTF files
-wget https://ftp.ensembl.org/pub/release-110/gtf/anopheles_arabiensis/Anopheles_arabiensis.AaraD1.110.gtf.gz
+wget wget http://ftp.ensemblgenomes.org/pub/metazoa/release-63/gtf/anopheles_gambiae/VectorBase-68_AgambiaePEST.gff.gz
 
 ## Unzip the GTF file
-gunzip Anopheles_arabiensis.AaraD1.110.gtf.gz
+gunzip VectorBase-68_AgambiaePEST.gff.gz
 
 ## view the first few lines of the GTF files
-cat Anopheles_arabiensis.AaraD1.110.fa | head
+cat VectorBase-68_AgambiaePEST.gff | head
 
 # Setting up the GFF file
 ## Make a new file with just the details of the genes from AaraD1
-grep -i "CYP\|cytochrome p450\|p450" Anopheles_arabiensis.AaraD1.110.gtf > Anopheles_arabiensis_CYP450.gtf
+grep -i "CYP\|cytochrome p450\|p450" VectorBase-68_AgambiaePEST.gff > Anopheles_arabiensis_CYP450.gtf
 
 ### to be more specific to P450 genes 
 grep -iE "CYP6|CYP9|CYP4|CYP12|cytochrome p450" Anopheles_arabiensis.AaraD1.110.gtf > Anopheles_arabiensis_CYP450.gtf
 
 ## view the first few lines of the file
 head Anopheles_arabiensis_CYP450.gtf
+
 
 
 
